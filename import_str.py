@@ -1,18 +1,21 @@
-"""文字列によるimport設定
+"""モジュールインポート
 """
 import os
 import sys
 
-module_parent_dir = '/'.join([os.path.dirname(__file__), '..'])
+# os.sepはプラットフォーム固有の区切り文字(Windows: `\`, Unix: `/`)
+module_parent_dir = os.sep.join([os.path.dirname(__file__), '..'])
+# print("module_parent_dir", module_parent_dir)
 sys.path.append(module_parent_dir)
-from Utility.type_hint import *
-from Utility.log_conf import logging
+
+from log_conf import logging
 log = logging.getLogger(__name__)
 # log.setLevel(logging.WARN)
 # log.setLevel(logging.INFO)
 log.setLevel(logging.DEBUG)
 
-def importstr(module_str : str, from_ : Optional[str] = None, start_index : int = 1):
+
+def importstr(module_str, from_=None):
     """
     >>> importstr('os')
     <module 'os' from '.../os.pyc'>
@@ -23,11 +26,12 @@ def importstr(module_str : str, from_ : Optional[str] = None, start_index : int 
         module_str, from_ = module_str.rsplit(':')
 
     module = __import__(module_str)
-    print('module: ', module)
+    # print('module: ', module)
 
     # start
+    start_index = 1
     for sub_str in module_str.split('.')[start_index:]:
-        module = getattr(module, sub_str)
+        module = getattr(module, sub_str) # 指定モジュールからサブモジュール名を取得
     
     if from_:
         try:
@@ -35,4 +39,3 @@ def importstr(module_str : str, from_ : Optional[str] = None, start_index : int 
         except:
             raise ImportError('{}.{}'.format(module_str, from_))
     return module
-

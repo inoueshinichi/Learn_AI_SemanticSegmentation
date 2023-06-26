@@ -1,11 +1,14 @@
-"""終了予測時刻付きEnumerate
+"""終了時刻予想付きのジェネレータ
 """
+
 import os
 import sys
 
-module_parent_dir = '/'.join([os.path.dirname(__file__), '..'])
+# os.sepはプラットフォーム固有の区切り文字(Windows: `\`, Unix: `/`)
+module_parent_dir = os.sep.join([os.path.dirname(__file__), '..'])
+# print("module_parent_dir", module_parent_dir)
 sys.path.append(module_parent_dir)
-from type_hint import *
+
 from log_conf import logging
 log = logging.getLogger(__name__)
 # log.setLevel(logging.WARN)
@@ -15,14 +18,15 @@ log.setLevel(logging.DEBUG)
 import time
 import datetime
 
+from type_hint import *
 
 def enumerate_with_estimate(
         iter : Iterable,
         desc_str : str,
         start_ndx : int = 0,
         print_ndx : int = 4,
-        backoff : Optional(int) = None,
-        iter_len : Optional(int) = None,
+        backoff : Optional[int] = None,
+        iter_len : Optional[int] = None,
 ):
     """
     In terms of behavior, `enumerateWithEstimate` is almost identical
@@ -127,3 +131,4 @@ def enumerate_with_estimate(
         iter_len,
         str(datetime.datetime.now()).rsplit('.', 1)[0],
     ))
+

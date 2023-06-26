@@ -3,10 +3,11 @@
 import os
 import sys
 
-module_parent_dir = '/'.join([os.path.dirname(__file__), '..'])
+# os.sepはプラットフォーム固有の区切り文字(Windows: `\`, Unix: `/`)
+module_parent_dir = os.sep.join([os.path.dirname(__file__), '..'])
+# print("module_parent_dir", module_parent_dir)
 sys.path.append(module_parent_dir)
 
-# 型ヒント
 from typing import (
     Any,
     NewType, # >= python 3.5.2
@@ -23,7 +24,7 @@ from typing import (
     Literal, # >= Python 3.8
     Callable, # 非推奨 Python 3.9.x
     NoReturn, # >= python 3.6.2
-    # Self, # 自分自身のオブジェクト]
+    # Self, # 自分自身のオブジェクト
     IO, # 非推奨 Python 3.8
     TextIO, # 非推奨 Python 3.8
     BinaryIO, # 非推奨 Python 3.8

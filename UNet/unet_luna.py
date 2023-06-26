@@ -20,7 +20,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from ThirdParty.unet import Unet
+from UNet.unet import Unet
 
 
 class UNetWrapper(nn.Module):
